@@ -1,0 +1,52 @@
+int rows = 0, cols = 0;
+
+            Console.Write("Введите количество строк (1-10): ");
+            if (!int.TryParse(Console.ReadLine(), out rows) || rows < 1 || rows > 10)
+            {
+                Console.WriteLine("Некорректный ввод. Введите от 1 до 10.");
+                return;
+            }
+
+            Console.Write("Введите количество столбцов (1-10): ");
+            if (!int.TryParse(Console.ReadLine(), out cols) || cols < 1 || cols > 10)
+            {
+                Console.WriteLine("Некорректный ввод. Введите от 1 до 10.");
+                return;
+            }
+
+            int[,] matrix = new int[rows, cols];
+            int evencount = 0;
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    Console.Write($"Введите элемент ({i},{j}): ");
+                    if (!int.TryParse(Console.ReadLine(), out matrix[i, j]))
+                    {
+                        Console.WriteLine("Некорректный ввод, установлено 0.");
+                        matrix[i, j] = 0;
+                    }
+
+                    if (matrix[i, j] % 2 == 0)
+                    {
+                        evencount++;
+                    }
+                }
+            }
+
+            Console.WriteLine("\nМассив:");
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine($"\nЧетных элементов: {evencount}");
+            Console.ReadKey();
+        }
+    }
+}
