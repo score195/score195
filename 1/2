@@ -1,0 +1,66 @@
+using System;
+
+namespace ConsoleApp22
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int rows = 0;
+
+            Console.Write("Введите количество строк (1-10): ");
+            if (!int.TryParse(Console.ReadLine(), out rows) || rows < 1 || rows > 10)
+            {
+                Console.WriteLine("Некорректный ввод. Введите от 1 до 10.");
+                return;
+            }
+
+            int[][] jaggedArray = new int[rows][];
+            int min = int.MaxValue;
+            int minRow = 0, minCol = 0;
+
+            for (int i = 0; i < rows; i++)
+            {
+                Console.Write($"Введите количество элементов в строке {i + 1} (1-10): ");
+                int cols;
+                if (!int.TryParse(Console.ReadLine(), out cols) || cols < 1 || cols > 10)
+                {
+                    Console.WriteLine("Некорректный ввод. Введите от 1 до 10.");
+                    return;
+                }
+
+                jaggedArray[i] = new int[cols];
+
+                for (int j = 0; j < cols; j++)
+                {
+                    Console.Write($"Введите элемент [{i},{j}]: ");
+                    if (!int.TryParse(Console.ReadLine(), out jaggedArray[i][j]))
+                    {
+                        Console.WriteLine("Некорректный ввод, установлено 0.");
+                        jaggedArray[i][j] = 0;
+                    }
+
+                    if (jaggedArray[i][j] < min)
+                    {
+                        min = jaggedArray[i][j];
+                        minRow = i;
+                        minCol = j;
+                    }
+                }
+            }
+
+            Console.WriteLine("\nМассив");
+            for (int i = 0; i < jaggedArray.Length; i++)
+            {
+                for (int j = 0; j < jaggedArray[i].Length; j++)
+                {
+                    Console.Write(jaggedArray[i][j] + " ");
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine($"\nМинимальный элемент: {min} (строка {minRow}, столбец {minCol})");
+            Console.ReadKey();
+        }
+    }
+}
